@@ -1,3 +1,27 @@
+server:
+  port: 12001
+#  port: 0 #随机分配一个可用端口
 spring:
   application:
     name: reader-backend
+  datasource:
+    url: jdbc:sqlite:${user.dir}/database/easyreader.db
+    driver-class-name: org.sqlite.JDBC
+    hikari:
+      maximum-pool-size: 1        # 核心：SQLite 最好只用一个连接
+      minimum-idle: 0
+      connection-timeout: 10000   # 连接超时时间
+      idle-timeout: 10000         # 空闲连接超时
+      max-lifetime: 30000         # 连接最大存活时间
+      leak-detection-threshold: 5000 # 连接泄漏检测
+      auto-commit: false          # 手动控制事务
+  sql:
+    init:
+      # 指定建表脚本位置（对应脚本生成路径）
+      schema-locations: classpath:database/schema.sql
+      # 开发期 always 表示每次都执行（幂等，因为有 IF NOT EXISTS）
+      mode: always
+      # 出错时是否继续（false 表示出错则启动失败，便于发现问题）
+      continue-on-error: false
+      # 指定数据源（通常无需配置，Spring Boot 会自动使用主数据源）
+      # 如果项目中有多个数据源，可能需要指定
