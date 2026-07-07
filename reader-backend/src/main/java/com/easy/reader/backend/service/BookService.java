@@ -1,6 +1,7 @@
-package com.easy.reader.backend.service.impl;
+package com.easy.reader.backend.service;
 
-import com.easy.reader.backend.pojo.entity.Book;
+
+import nl.siegmann.epublib.domain.Book;
 
 /**
  * 处理所有与图书本身有关的功能，如图书导入
