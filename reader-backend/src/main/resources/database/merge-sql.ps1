@@ -29,19 +29,22 @@ if (-not (Test-Path $targetDir)) {
     New-Item -ItemType Directory -Path $targetDir -Force | Out-Null
 }
 
-# 按顺序合并 SQL 文件
-$order = @("book.sql", "progress.sql", "bookmark.sql", "note.sql")
+# 获取所有 .sql 文件，并按文件名排序
+$sqlFiles = Get-ChildItem -Path $specsSqlDir -Filter "*.sql" | Sort-Object Name
+
+if ($sqlFiles.Count -eq 0) {
+    Write-Warning "No .sql files found in $specsSqlDir"
+    exit 0
+}
+
 $content = @()
-foreach ($file in $order) {
-    $fullPath = Join-Path $specsSqlDir $file
-    if (Test-Path $fullPath) {
-        Write-Host "Adding $file ..."
-        $content += "`n-- ============================================`n-- File: $file`n-- ============================================`n"
-        $content += Get-Content $fullPath -Raw -Encoding UTF8
-        $content += "`n"
-    } else {
-        Write-Warning "Skipping missing file: $file"
-    }
+foreach ($file in $sqlFiles) {
+    $fullPath = $file.FullName
+    $fileName = $file.Name
+    Write-Host "Adding $fileName ..."
+    $content += "`n-- ============================================`n-- File: $fileName`n-- ============================================`n"
+    $content += Get-Content $fullPath -Raw -Encoding UTF8
+    $content += "`n"
 }
 
 $content -join "`n" | Out-File -FilePath $targetFile -Encoding UTF8 -Force
