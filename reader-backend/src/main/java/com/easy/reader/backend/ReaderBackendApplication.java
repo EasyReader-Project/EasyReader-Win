@@ -11,7 +11,11 @@ public class ReaderBackendApplication {
 
     public static void main(String[] args) {
         ConfigurableApplicationContext context = SpringApplication.run(ReaderBackendApplication.class, args);
-        int port = context.getEnvironment().getProperty("local.server.port", Integer.class);
+        String portProperty = context.getEnvironment().getProperty("local.server.port");
+        if(portProperty == null) {
+            throw new RuntimeException("项目环境属性 'local.server.port' 未设置");
+        }
+        int port = Integer.parseInt(portProperty);
         System.out.println("EASYREADER_PORT=" + port);  // 关键输出行
         BookService bookService = context.getBean(BookService.class);
         bookService.importBook("D:\\Project\\EasyReader\\EasyReader-Win\\reader-backend\\temp\\Test.epub");
