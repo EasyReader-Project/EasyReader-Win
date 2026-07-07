@@ -12,7 +12,8 @@ CREATE TABLE IF NOT EXISTS book(
   title TEXT NOT NULL,
   author TEXT,
   publisher TEXT,
-  format TEXT NOT NULL CHECK(format IN ('epub', 'pdf')),
+  -- //TODO: 应补充其他分类
+  file_type TEXT NOT NULL CHECK(file_type IN ('epub', 'pdf','txt','doc','docx')),
   word_count INTEGER,
   page_count INTEGER,
   local_path TEXT NOT NULL,

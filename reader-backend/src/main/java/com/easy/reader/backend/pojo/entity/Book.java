@@ -22,7 +22,7 @@ public class Book {
 
     private String publisher;
 
-    private String format;
+    private String fileType;
 
     private Integer wordCount;
 
