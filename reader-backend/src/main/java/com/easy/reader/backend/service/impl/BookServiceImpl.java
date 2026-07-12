@@ -3,12 +3,7 @@ package com.easy.reader.backend.service.impl;
 import com.easy.reader.backend.exception.NoSuchBookFile;
 import com.easy.reader.backend.service.BookService;
 import lombok.RequiredArgsConstructor;
-import nl.siegmann.epublib.domain.Book;
-import nl.siegmann.epublib.domain.Metadata;
-import nl.siegmann.epublib.domain.Resource;
-import nl.siegmann.epublib.domain.Spine;
-import nl.siegmann.epublib.domain.TOCReference;
-import nl.siegmann.epublib.domain.TableOfContents;
+import nl.siegmann.epublib.domain.*;
 import nl.siegmann.epublib.epub.EpubReader;
 import org.springframework.stereotype.Service;
 
@@ -23,7 +18,7 @@ import java.util.Map;
 public class BookServiceImpl implements BookService {
 
     @Override
-    public Book importBook(String filePath) {
+    public com.easy.reader.backend.pojo.entity.book.Book importEpub(String filePath) {
         try (InputStream fis = new FileInputStream(filePath)) {
             EpubReader reader = new EpubReader();
             Book book = reader.readEpub(fis);
@@ -53,7 +48,7 @@ public class BookServiceImpl implements BookService {
                 System.out.println("  - 资源 " + (i + 1) + ": " + title);
             }
 
-            return book;
+            return null;
 
         } catch (IOException e) {
             throw new NoSuchBookFile(filePath, e.getMessage());

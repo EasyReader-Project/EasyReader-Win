@@ -18,6 +18,6 @@ public class ReaderBackendApplication {
         int port = Integer.parseInt(portProperty);
         System.out.println("EASYREADER_PORT=" + port);  // 关键输出行
         BookService bookService = context.getBean(BookService.class);
-        bookService.importBook("D:\\Project\\EasyReader\\EasyReader-Win\\reader-backend\\temp\\Test.epub");
+        bookService.importEpub("D:\\Project\\EasyReader\\EasyReader-Win\\reader-backend\\temp\\Test.epub");
     }
 }
