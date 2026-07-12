@@ -1,18 +1,23 @@
-package com.easy.reader.backend.pojo.entity;
+package com.easy.reader.backend.pojo.entity.book;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.annotation.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.experimental.Accessors;
+
+/**
+ * @author ：Star
+ * @description ：无描述
+ * @date ：2026 7月 12 17:25
+ */
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@TableName("bookmark")
-public class Bookmark {
+@Accessors(chain = true)
+@TableName("book_mark")
+public class BookMark {
 
     @TableId(type = IdType.AUTO)
     private Long id;
@@ -20,9 +25,6 @@ public class Bookmark {
     @TableField("book_id")
     private Long bookId;
 
-    /**
-     * 定位信息 JSON（复用 progress_json 结构）
-     */
     @TableField("location_json")
     private String locationJson;
 
@@ -33,14 +35,11 @@ public class Bookmark {
 
     private String color;
 
-    /**
-     * 样式：bookmark / highlight / underline
-     */
     private String style;
 
-    @TableField("created_at")
+    @TableField(fill = FieldFill.INSERT)
     private Long createdAt;
 
-    @TableField("updated_at")
+    @TableField(fill = FieldFill.INSERT_UPDATE)
     private Long updatedAt;
 }

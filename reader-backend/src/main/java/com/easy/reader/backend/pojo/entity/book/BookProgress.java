@@ -1,20 +1,23 @@
-package com.easy.reader.backend.pojo.entity;
+package com.easy.reader.backend.pojo.entity.book;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.annotation.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 
+/**
+ * @author ：Star
+ * @description ：无描述
+ * @date ：2026 7月 12 17:26
+ */
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Accessors(chain = true)
-@TableName("progress")
-public class Progress {
+@TableName("book_progress")
+public class BookProgress {
 
     @TableId(type = IdType.AUTO)
     private Long id;
@@ -22,18 +25,12 @@ public class Progress {
     @TableField("book_id")
     private Long bookId;
 
-    /**
-     * 进度 JSON（与 Android 端互通）
-     */
     @TableField("progress_json")
     private String progressJson;
 
     @TableField("current_chapter_title")
     private String currentChapterTitle;
 
-    /**
-     * 全局百分比，0.0 ~ 1.0
-     */
     @TableField("global_percent")
     private Double globalPercent;
 
