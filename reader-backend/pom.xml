@@ -136,18 +136,18 @@
                         <goals>
                             <goal>exec</goal>
                         </goals>
-                        <configuration>
-                            <executable>powershell.exe</executable>
-                            <workingDirectory>${project.basedir}</workingDirectory>  <!-- 设为 reader-backend -->
-                            <arguments>
-                                <argument>-ExecutionPolicy</argument>
-                                <argument>Bypass</argument>
-                                <argument>-File</argument>
-                                <argument>${project.basedir}/src/main/resources/database/merge-sql.ps1</argument>
-                            </arguments>
-                        </configuration>
                     </execution>
                 </executions>
+                <configuration>
+                    <executable>powershell.exe</executable>
+                    <workingDirectory>${project.basedir}</workingDirectory>  <!-- 设为 reader-backend -->
+                    <arguments>
+                        <argument>-ExecutionPolicy</argument>
+                        <argument>Bypass</argument>
+                        <argument>-File</argument>
+                        <argument>${project.basedir}/src/main/resources/database/merge-sql.ps1</argument>
+                    </arguments>
+                </configuration>
             </plugin>
         </plugins>
     </build>
