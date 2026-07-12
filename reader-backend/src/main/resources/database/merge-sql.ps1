@@ -23,26 +23,27 @@ if (-not (Test-Path $specsSqlDir)) {
     exit 1
 }
 
-# 创建目标目录（如果不存在，其实已经存在）
+# 创建目标目录（如果不存在）
 $targetDir = Split-Path $targetFile -Parent
 if (-not (Test-Path $targetDir)) {
     New-Item -ItemType Directory -Path $targetDir -Force | Out-Null
 }
 
-# 获取所有 .sql 文件，并按文件名排序
-$sqlFiles = Get-ChildItem -Path $specsSqlDir -Filter "*.sql" | Sort-Object Name
+# 递归获取所有 .sql 文件，并按完整路径排序（保证顺序稳定）
+$sqlFiles = Get-ChildItem -Path $specsSqlDir -Filter "*.sql" -Recurse | Sort-Object FullName
 
 if ($sqlFiles.Count -eq 0) {
-    Write-Warning "No .sql files found in $specsSqlDir"
+    Write-Warning "No .sql files found in $specsSqlDir (and subdirectories)"
     exit 0
 }
 
 $content = @()
 foreach ($file in $sqlFiles) {
     $fullPath = $file.FullName
-    $fileName = $file.Name
-    Write-Host "Adding $fileName ..."
-    $content += "`n-- ============================================`n-- File: $fileName`n-- ============================================`n"
+    # 计算相对于源目录的路径（兼容 PowerShell 2.0）
+    $relativePath = $fullPath.Substring($specsSqlDir.Length).TrimStart('\', '/')
+    Write-Host "Adding $relativePath ..."
+    $content += "`n-- ============================================`n-- File: $relativePath`n-- ============================================`n"
     $content += Get-Content $fullPath -Raw -Encoding UTF8
     $content += "`n"
 }
