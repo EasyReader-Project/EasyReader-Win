@@ -31,5 +31,8 @@ build/
 
 ### VS Code ###
 .vscode/
-/database/
-/temp
+
+
+
+/reader-backend/database/
+/reader-backend/temp
