@@ -1,0 +1,6 @@
+server:
+  port: 12001
+spring:
+  datasource:
+    # 该项user.dir为IDEA的工作目录，即项目根目录，而不是模块目录
+    url: jdbc:sqlite:${user.dir}/reader-backend/database/easyreader.db

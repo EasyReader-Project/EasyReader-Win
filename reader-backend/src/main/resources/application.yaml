@@ -1,11 +1,11 @@
 server:
-  port: 12001
-#  port: 0 #随机分配一个可用端口
+  port: 0 #随机分配一个可用端口
 spring:
+  profiles:
+    active: dev  # 默认激活开发环境
   application:
     name: reader-backend
   datasource:
-    url: jdbc:sqlite:${user.dir}/database/easyreader.db
     driver-class-name: org.sqlite.JDBC
     hikari:
       maximum-pool-size: 1        # 核心：SQLite 最好只用一个连接
