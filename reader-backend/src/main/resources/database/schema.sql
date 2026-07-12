@@ -55,8 +55,8 @@ CREATE TABLE IF NOT EXISTS book_mark (
     FOREIGN KEY (book_id) REFERENCES book(id) ON DELETE CASCADE
 );
 
-CREATE INDEX idx_book_mark_book_id ON book_mark(book_id);
-CREATE INDEX idx_book_mark_created_at ON book_mark(created_at);
+CREATE INDEX IF NOT EXISTS idx_book_mark_book_id ON book_mark(book_id);
+CREATE INDEX IF NOT EXISTS idx_book_mark_created_at ON book_mark(created_at);
 
 
 
@@ -80,9 +80,9 @@ CREATE TABLE IF NOT EXISTS book_note (
     FOREIGN KEY (book_mark_id) REFERENCES book_mark(id) ON DELETE CASCADE
 );
 
-CREATE INDEX idx_book_note_book_id ON book_note(book_id);
-CREATE INDEX idx_book_note_book_mark_id ON book_note(book_mark_id);
-CREATE INDEX idx_book_note_created_at ON book_note(created_at);
+CREATE INDEX IF NOT EXISTS idx_book_note_book_id ON book_note(book_id);
+CREATE INDEX IF NOT EXISTS idx_book_note_book_mark_id ON book_note(book_mark_id);
+CREATE INDEX IF NOT EXISTS idx_book_note_created_at ON book_note(created_at);
 
 
 
@@ -105,8 +105,8 @@ CREATE TABLE IF NOT EXISTS book_progress (
     FOREIGN KEY (book_id) REFERENCES book(id) ON DELETE CASCADE
 );
 
-CREATE INDEX idx_book_progress_book_id ON book_progress(book_id);
-CREATE INDEX idx_book_progress_last_read ON book_progress(last_read_at);
+CREATE INDEX IF NOT EXISTS idx_book_progress_book_id ON book_progress(book_id);
+CREATE INDEX IF NOT EXISTS idx_book_progress_last_read ON book_progress(last_read_at);
 
 
 
@@ -158,9 +158,9 @@ CREATE TABLE IF NOT EXISTS shelf_folder (
     FOREIGN KEY (parent_shelf_folder_id) REFERENCES shelf_folder(id) ON DELETE CASCADE
 );
 
-CREATE INDEX idx_shelf_folder_shelf_id ON shelf_folder(shelf_id);
-CREATE INDEX idx_shelf_folder_parent ON shelf_folder(parent_shelf_folder_id);
-CREATE INDEX idx_shelf_folder_uuid ON shelf_folder(uuid);
+CREATE INDEX IF NOT EXISTS idx_shelf_folder_shelf_id ON shelf_folder(shelf_id);
+CREATE INDEX IF NOT EXISTS idx_shelf_folder_parent ON shelf_folder(parent_shelf_folder_id);
+CREATE INDEX IF NOT EXISTS idx_shelf_folder_uuid ON shelf_folder(uuid);
 
 
 
@@ -188,9 +188,9 @@ CREATE TABLE IF NOT EXISTS shelf_item (
     UNIQUE(shelf_id, book_id)                 -- 同一书架的同一本书只能出现一次
 );
 
-CREATE INDEX idx_shelf_item_shelf ON shelf_item(shelf_id);
-CREATE INDEX idx_shelf_item_book ON shelf_item(book_id);
-CREATE INDEX idx_shelf_item_folder ON shelf_item(shelf_folder_id);
-CREATE INDEX idx_shelf_item_archived ON shelf_item(is_archived);
+CREATE INDEX IF NOT EXISTS idx_shelf_item_shelf ON shelf_item(shelf_id);
+CREATE INDEX IF NOT EXISTS idx_shelf_item_book ON shelf_item(book_id);
+CREATE INDEX IF NOT EXISTS idx_shelf_item_folder ON shelf_item(shelf_folder_id);
+CREATE INDEX IF NOT EXISTS idx_shelf_item_archived ON shelf_item(is_archived);
 
 
